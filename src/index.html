@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <script>
+        delete window.module;
+        const {
+            ipcRenderer
+        } = require('electron');
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
+    <script src="js/titleBarControl.js"></script>
+    <script src="js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body>
+    <div class="header">
+        <div class="windowBar">
+            <div class="windowDragBar">Tiger Player 0.1</div>
+            <div class="windowButtons">
+                <div class="windowMinButton windowButton" onclick="minWindow()">-</div>
+                <div class="windowMaxResButton windowButton" onclick="maxWindow()">□</div>
+                <div class="windowCloseButton windowButton" onclick="closeWindow()">✕</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="startup">
+        <div class="startupImage"></div>
+        Tiger Player
+    </div>
+    <div class="firstStart">
+        <span class="firstStartIcon">?</span>
+        No music found.
+        <span class="firstStartText">Click browse to select a music folder.</span>
+        <span class="browseButton">Browse</span>
+    </div>
+    <div class="mainContainer">
+        <div class="musicListContainer">
+            <span class="musicListTitle">Music</span>
+            <div class="musicList">
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
