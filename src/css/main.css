@@ -4,6 +4,11 @@ body {
     padding: 0s;
     width: 100%;
     overflow: hidden;
+    height: 100%;
+}
+
+html {
+    height: 100%;
 }
 
 .header {
@@ -113,33 +118,45 @@ body {
     font-size: 20px;
     transition: 0.5s;
 }
-.browseButton:hover{
+
+.browseButton:hover {
     background-color: rgba(0, 0, 0, 0.178);
 }
-.mainContainer{
+
+.mainContainer {
     opacity: 0;
 }
-.musicListContainer{
+
+.musicListContainer {
     padding: 20px;
+    overflow: auto;
 }
-.musicAppend{
+
+.musicList {
+    overflow: auto;
+    height: calc(100% - 157px);
+}
+
+.musicAppend {
     margin: 30px;
 }
-.musicListTitle{
+
+.musicListTitle {
     font-weight: bold;
     font-size: 50px;
     display: block;
     padding-top: 50px;
     padding-left: 50px;
 }
-.musicImage{
-    width: 150  px;
+
+.musicImage {
+    width: 150px;
     height: 150px;
     background-size: 100%;
     display: inline-block;
 }
 
-.information{
+.information {
     display: inline-block;
     vertical-align: top;
     margin-left: 15px;
