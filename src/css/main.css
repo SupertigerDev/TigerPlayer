@@ -135,6 +135,7 @@ html {
 .musicList {
     overflow: auto;
     height: calc(100% - 157px);
+    display: none;
 }
 
 .musicAppend {

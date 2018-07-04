@@ -37,6 +37,26 @@ $(function () {
 
     });
 
+
+
+    $(".browseButton").click(function (e) {
+        var path = dialog.showOpenDialog({
+            properties: ['openDirectory']
+        });
+        if (typeof path != "undefined") {
+            store.set("configuration", {
+                musicFolderPath: path
+            })
+            firstStartScreen.animate({
+                opacity: 0
+            }, 300, function () {
+                firstStartScreen.css("display", "none")
+                mainMusicScreen();
+            })
+        }
+    });
+
+
     function loadUpAnimationComplete() {
 
         if (typeof store.get("configuration") == "undefined") {
@@ -44,24 +64,6 @@ $(function () {
             firstStartScreen.animate({
                 opacity: 1
             }, 300)
-
-            $(".browseButton").click(function (e) {
-                var path = dialog.showOpenDialog({
-                    properties: ['openDirectory']
-                });
-                if (typeof path != "undefined") {
-                    store.set("configuration", {
-                        musicFolderPath: path
-                    })
-                    firstStartScreen.animate({
-                        opacity: 0
-                    }, 300, function () {
-                        firstStartScreen.css("display", "none")
-                        mainMusicScreen();
-                    })
-                }
-            });
-
 
         } else {
             firstStartScreen.css("display", "none")
@@ -81,6 +83,7 @@ $(function () {
 
 
     function getAllMusic() {
+        musicList.fadeIn();
         var filesFolders = []
         fs.readdir(store.get("configuration").musicFolderPath[0], function (err, items) {
             for (var i = 0; i < items.length; i++) {
@@ -113,6 +116,7 @@ $(function () {
 
             }
             if (filesFolders.length <= 0) {
+                musicList.fadeOut();
                 firstStartScreen.css("display", "block")
                 mainContainer.animate({
                     opacity: 0
@@ -121,9 +125,6 @@ $(function () {
                     opacity: 1
                 }, 300)
             }
-
-
-
         });
     }
 
