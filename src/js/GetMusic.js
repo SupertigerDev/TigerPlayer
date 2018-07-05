@@ -1,21 +1,15 @@
-const fs = require('fs');
-const Store = require('electron-store');
-const store = new Store();
-const asyncLoop = require('node-async-loop');
-const jsmediatags = require("jsmediatags");
-
-const startup = $(".startup"),
-    firstStartScreen = $(".firstStart"),
-    mainContainer = $(".mainContainer"),
-    musicList = $(".musicList");
-
 
 function getAllMusic() {
+    spinner.fadeIn();
     var append = "";
+    var musicFound = 0;
     fs.readdir(store.get("configuration").musicFolderPath[0], function (err, items) {
         asyncLoop(items, function (item, next) {
+            if (typeof item == "undefined"){browseMusic(); return;}
             if (item.endsWith(".mp3")) {
-
+                if (!fs.lstatSync(store.get("configuration").musicFolderPath[0] + "/" + item).isDirectory()){
+                    musicFound++;
+                }
                 getAlbumInformation(item, function (cb) {
                     append += cb;
                     next();
@@ -31,23 +25,33 @@ function getAllMusic() {
                 return;
             }
             console.log('Finished!');
+            numOfMusic.html(musicFound)
+
+        if (musicFound <= 0) {
+            browseMusic()
+        }
+
+
 
             final = $(append).hide()
             $(musicList).append(final);
-            final.fadeIn(300);
+            spinner.fadeOut(300, function(){
+                final.fadeIn(300);
+            })
+
         });
-        // TODO FIX FOLDER CHECK AGAIN.
-        if (items.length <= 0) {
-            musicList.fadeOut();
-            firstStartScreen.css("display", "block")
-            mainContainer.animate({
-                opacity: 0
-            }, 300)
-            firstStartScreen.animate({
-                opacity: 1
-            }, 300)
-        }
+
     });
+}
+function browseMusic(){
+    mainContainer.fadeOut();
+    firstStartScreen.css("display", "block")
+    mainContainer.animate({
+        opacity: 0
+    }, 300)
+    firstStartScreen.animate({
+        opacity: 1
+    }, 300)
 }
 
 function getAlbumInformation(item, cb) {
@@ -66,13 +70,13 @@ function getAlbumInformation(item, cb) {
                 artist = tag.tags.artist
             }
 
-            var final = '<div class="musicAppend"><img class="musicImage" src="' + imageUri + '"></img><div class="information"><p>' + title + '</p><p>' + artist + '</p><p>0:00</p></div></div>'
+            var final = '<div class="musicAppend" onClick="musicClicked(this)"><img class="musicImage" src="' + imageUri + '"></img><div class="information"><p>' + title + '</p><p>' + artist + '</p><p>0:00</p></div></div>'
             cb(final)
         },
         onError: function (error) {
             // handle error
             if (error.type == "tagFormat"){
-                var final = '<div class="musicAppend"><img class="musicImage" src="' + imageUri + '"></img><div class="information"><p>' + item + '</p><p></p><p>0:00</p></div></div>'
+                var final = '<div class="musicAppend" onClick="musicClicked(this)"><img class="musicImage" src="./img/TigerLogo1.png"></img><div class="information"><p>' + item + '</p><p></p><p>0:00</p></div></div>'
                 cb(final)
             }
 

@@ -1,21 +1,28 @@
+const startup = $(".startup"),
+firstStartScreen = $(".firstStart"),
+mainContainer = $(".mainContainer"),
+musicList = $(".musicList"),
+numOfMusic = $('.numOfMusic'),
+spinner = $(".loader"),
+backgroundImage = $(".backgroundImage");
+
+const {
+    dialog
+} = require('electron').remote;
+const fs = require('fs');
+const Store = require('electron-store');
+const store = new Store();
+const asyncLoop = require('node-async-loop');
+
+const jsmediatags = require("jsmediatags");
+
+
+
 $(function () {
 
-    const {
-        dialog
-    } = require('electron').remote;
-    const fs = require('fs');
-    const Store = require('electron-store');
-    const store = new Store();
-    const asyncLoop = require('node-async-loop');
+    ///store.delete("configuration")
 
-    const jsmediatags = require("jsmediatags");
 
-    //store.delete("configuration")
-
-    const startup = $(".startup"),
-        firstStartScreen = $(".firstStart"),
-        mainContainer = $(".mainContainer"),
-        musicList = $(".musicList");
 
     startup.animate({
         opacity: 1,
@@ -73,11 +80,14 @@ $(function () {
     }
 
     function mainMusicScreen() {
+        mainContainer.fadeIn();
         mainContainer.animate({
             opacity: 1
         }, 300, function () {
-            musicList.fadeIn();
-            getAllMusic();
+            musicList.fadeIn(400, function () {
+                getAllMusic();
+            });
+
         })
 
 

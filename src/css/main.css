@@ -12,14 +12,14 @@ html {
 }
 
 .header {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.33);
     width: 100%;
     height: 25px;
     user-select: none;
 }
 
 .windowBar {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.33);
     width: 100%;
     height: 25px;
 }
@@ -128,26 +128,73 @@ html {
 }
 
 .musicListContainer {
-    padding: 20px;
     overflow: auto;
+}
+
+.backgroundImage {
+    transform: scale(1.1);
+    transition: background-image 0.2s ease-in-out;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(50px);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
+
+.content {
+    z-index: 9999;
 }
 
 .musicList {
     overflow: auto;
-    height: calc(100% - 157px);
+    height: calc(100% - 137px);
     display: none;
 }
 
 .musicAppend {
-    margin: 30px;
+    margin: 10px 10px 0px 30px;
+    padding-left: 12px;
+    height: 173px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: default;
+    background-color: rgba(253, 253, 253, 0.39);
+}
+
+.musicAppend:hover {
+    font-weight: bold;
+}
+
+.musicAppend:hover>.musicImage {
+    border-radius: 10px;
+    box-shadow: 4px 1px 19px rgba(0, 0, 0, 0.29)
+}
+
+.musicListHeader {
+    border-bottom: solid black 1px;
+    background-color: rgba(255, 255, 255, 0.33);
 }
 
 .musicListTitle {
     font-weight: bold;
     font-size: 50px;
-    display: block;
-    padding-top: 50px;
+    display: inline-block;
+    padding-top: 40px;
+    padding-bottom: 10px;
     padding-left: 50px;
+}
+
+.mainContainerHeadingRight {
+    float: right;
+}
+
+.totalMusic {
+    display: block;
+    margin-top: 50px;
+    margin-right: 20px;
 }
 
 .musicImage {
@@ -155,6 +202,10 @@ html {
     height: 150px;
     background-size: 100%;
     display: inline-block;
+    border-radius: 0px;
+    margin-top: 10px;
+    border: solid 1px rgba(39, 39, 39, 0.445);
+    transition: 0.5s ease;
 }
 
 .information {
@@ -163,4 +214,27 @@ html {
     margin-left: 15px;
     font-size: 20px;
     line-height: 5px;
+}
+
+.loader {
+    margin: auto;
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid black;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s ease infinite;
+    margin-top: 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
